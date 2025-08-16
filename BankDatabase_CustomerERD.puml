@@ -1,0 +1,68 @@
+@startuml BankDatabase_CustomerERD
+!theme plain
+skinparam entityStyle rectangle
+
+entity "customers" as customers {
+  *customer_id : UUID <<PK>>
+  --
+  legal_name : TEXT
+  birth_date : DATE
+  national_id_number : TEXT
+  residency_country : CHAR(2)
+  customer_type : VARCHAR(20)
+  created_at : TIMESTAMPTZ
+  updated_at : TIMESTAMPTZ
+}
+
+entity "customer_contacts" as customer_contacts {
+  *contact_id : UUID <<PK>>
+  --
+  customer_id : UUID <<FK>>
+  kind : TEXT
+  value : TEXT
+  is_primary : BOOLEAN
+}
+
+entity "customer_addresses" {
+  *address_id : UUID <<PK>>
+  --
+  customer_id : UUID <<FK>>
+  line1 : TEXT
+  line2 : TEXT
+  city : TEXT
+  state_region : TEXT
+  postal_code : TEXT
+  country : CHAR(2)
+  from_date : DATE
+  to_date : DATE
+}
+
+customers ||--o{ customer_contacts : has
+customers ||--o{ customer_addresses : has
+' === Sample Data for customers ===
+note right of customers
+Sample Data:
+c1 | John Doe | 1985-04-12 | S1234567A | SG | Regular
+c2 | Jane Smith | 1990-07-25 | S2345678B | SG | Premium
+c3 | David Tan | 1978-11-03 | S3456789C | SG | Regular
+c4 | Sarah Lee | 1995-02-17 | S4567890D | SG | Regular
+c5 | Michael Wong | 1982-09-29 | S5678901E | SG | SME
+end note
+
+' === Sample Data for customer_contacts ===
+note right of customer_contacts
+Sample Data:
+cc1 | c1 | email  | john.doe@email.com    | true
+cc2 | c1 | mobile | +65-9123-4567         | true
+cc3 | c1 | phone  | +65-6123-4567         | false
+cc4 | c2 | email  | jane.smith@email.com  | true
+cc5 | c2 | mobile | +65-9876-5432         | true
+cc6 | c3 | email  | david.tan@email.com   | true
+cc7 | c3 | mobile | +65-8123-7890         | true
+cc8 | c4 | email  | sarah.lee@email.com   | true
+cc9 | c4 | mobile | +65-9456-7890         | true
+cc10| c5 | email  | michael.wong@email.com| true
+cc11| c5 | mobile | +65-9001-2233         | true
+cc12| c5 | phone  | +65-6555-7788         | false
+end note
+@enduml

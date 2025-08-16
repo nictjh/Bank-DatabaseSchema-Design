@@ -1,0 +1,62 @@
+@startuml OverviewOfSchema
+!theme plain
+skinparam entityStyle rectangle
+
+entity "customers" as customers {
+  *customer_id : UUID <<PK>>
+}
+
+entity "customer_contacts" as customer_contacts {
+  *contact_id : UUID <<PK>>
+  customer_id : UUID <<FK>>
+}
+
+entity "customer_addresses" as customer_addresses {
+  *address_id : UUID <<PK>>
+  customer_id : UUID <<FK>>
+}
+
+entity "products" as products {
+  *product_id : UUID <<PK>>
+}
+
+entity "accounts" as accounts {
+  *account_id : UUID <<PK>>
+  product_id : UUID <<FK>>
+}
+
+entity "account_parties" as account_parties {
+  *account_id : UUID <<FK>>
+  *customer_id : UUID <<FK>>
+}
+
+entity "balances" as balances {
+  *balance_id : UUID <<PK>>
+  account_id : UUID <<FK>>
+}
+
+entity "paynow_proxies" as paynow_proxies {
+  *proxy_id : UUID <<PK>>
+  customer_id : UUID <<FK>>
+  account_id : UUID <<FK>>
+}
+
+entity "transactions" as transactions {
+  *transaction_id : UUID <<PK>>
+  account_id : UUID <<FK>>
+}
+
+' === Relationships ===
+customers ||--o{ customer_contacts : has
+customers ||--o{ customer_addresses : has
+customers ||--o{ account_parties : owns
+customers ||--o{ paynow_proxies : registers
+
+accounts ||--o{ account_parties : "is linked to"
+accounts ||--o{ balances : "has"
+accounts ||--o{ transactions : "records"
+accounts ||--o{ paynow_proxies : "maps to"
+
+products ||--o{ accounts : "defines"
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml MobileBankingDiagram
+left to right direction
+skinparam actorStyle awesome
+
+actor Customer
+actor "Admin (Customer Support)" as Admin
+
+rectangle "Mobile Banking App" {
+    Customer --> (Set Up Account)
+    Customer --> (Log in / Authenticate)
+    Customer --> (Log Out)
+    Customer --> (View Account Balance)
+    Customer --> (View Transaction History)
+    Customer --> (Initiate Fund Transfer)
+    Customer --> (Initiate Fund Transfer with PayNow)
+    Customer --> (Change Personal Information)
+    Customer --> (Receive Push Notifications)
+    Customer --> (View Web Content)
+    Customer --> (Send Real-Time Message to Support)
+
+    Admin --> (View Customer Profile)
+    Admin --> (Reset Customer Password)
+    Admin --> (Lock / Unlock Account)
+    Admin --> (Investigate Transaction)
+    Admin --> (Respond to Support Request)
+
+    (Send Real-Time Message to Support) --> (Respond to Support Request) : <<include>>
+}
+@enduml
