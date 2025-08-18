@@ -110,3 +110,9 @@ CREATE TABLE transactions (
   status                 TEXT NOT NULL CHECK (status IN ('Booked','Pending','Rejected')) DEFAULT 'Booked',
   created_at             TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+
+-- Linking to Supabase Auth logic,
+-- every login will correspond to a customer
+ALTER TABLE customers
+ADD COLUMN auth_user_id UUID UNIQUE REFERENCES auth.users(id);
