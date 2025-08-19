@@ -50,6 +50,15 @@ entity "transactions" as transactions {
   created_at : TIMESTAMPTZ
 }
 
+note right of transactions
+| transaction_id | account_id | booking_datetime | value_datetime | amount | currency | credit_debit | transaction_type | description | merchant_name | merchant_category_code | status |
+| tx001 | acc01 | 2025-08-18 09:30 | 2025-08-18 09:30 | 50.00 | SGD | Debit | ATM Withdrawal | Cash withdrawal at POSB ATM | POSB | NULL | Booked |
+| tx002 | acc01 | 2025-08-18 12:45 | 2025-08-18 12:45 | 12.50 | SGD | Debit | POS Purchase | Coffee at Starbucks | Starbucks | 5812 | Booked |
+| tx003 | acc01 | 2025-08-18 14:20 | 2025-08-18 14:20 | 500.00 | SGD | Credit | Salary Credit | Salary from ABC Pte Ltd | ABC Pte Ltd | NULL | Booked |
+| tx004 | acc01 | 2025-08-18 16:05 | 2025-08-18 16:05 | 120.00 | SGD | Debit | Online Transfer | Transfer to John Tan DBS 1234 | John Tan | NULL | Pending |
+| tx005 | acc01 | 2025-08-18 17:45 | 2025-08-18 17:45 | 2.35 | SGD | Debit | Bank Fee | Monthly account maintenance fee | POSB | NULL | Booked |
+end note
+
 accounts ||--o{ balances : "has"
 accounts ||--o{ transactions : "records"
 
