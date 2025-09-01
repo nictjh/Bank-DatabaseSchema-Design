@@ -1,0 +1,38 @@
+Open Banking: (Baseline) for accounts, balances, transactions
+https://openbankinguk.github.io/read-write-api-site3/v4.0/resources-and-data-models/aisp/Balances.html
+
+MCC codes:
+https://docs.fiserv.dev/public/docs/merchant-category-codes
+
+ISO 20022 (Balance Type Code)
+https://www.iso20022.org/standardsrepository/type/BalanceTypeCode
+
+ISO 4217 (Currency Codes)
+https://datahub.io/core/currency-codes
+
+ISO 3166-1 alpha-2
+https://www.iban.com/country-codes
+
+-> Customers followed the KYC requirements (prevent fraud)
+-> Included PayNow proxies to support PayNow services
+
+Design wise:
+-> Data normalization to remove redundancy and improve consistency (e.g. customers...)
+-> Denormalized balances for fast balance reads
+        -> BUT, catered for Auditability:
+            - Append-only balance to keep track
+            - Immutable transactions
+
+Referenced multiple academic papers on core banking database replication
+1. https://www.theseus.fi/bitstream/handle/10024/507279/Designing%20a%20Banking%20System.pdf?sequence=2
+2. https://creately.com/diagram/example/qJLivb4gynl/banking-database-schema
+3. https://www.scribd.com/document/550859951/77-Online-Banking-System-1?v=0.164
+4. https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=79aa8b2fc7cd02df6b621834ca6a998edffbc79c
+5. https://crassula.io/blog/core-banking-database-design/
+
+References for Bank useing relational SQL databases:
+https://globalbanks.com/how-are-databases-used-in-banking/
+https://www.pingcap.com/case-study/top-150-global-bank-elevates-core-banking-system-with-tidb/
+https://www.cockroachlabs.com/blog/banks-leaving-legacy-rdbms-for-cockroachdb/
+https://www.itnews.asia/news/ocbc-adopts-modern-distributed-database-architecture-607496
+https://www.reddit.com/r/Database/comments/1djnpsi/what_database_technologies_do_banks_use/
